@@ -1,6 +1,7 @@
 name: Go
 
 on:
+  workflow_dispatch:
   push:
     paths: apis/trips/**
     branches: [ develop ]

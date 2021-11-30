@@ -2,15 +2,11 @@ name: Go
 
 on:
   push:
-    paths: 
-    - "./apis/trips"
     branches: [ develop ]
 
 jobs:
 
   build:
-    env:
-      working-directory: ./apis/trips
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

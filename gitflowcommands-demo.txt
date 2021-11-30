@@ -1,0 +1,30 @@
+//create and goto the folder
+md git-flow
+cd git-flow
+
+//make this folder a git repo
+git init
+
+//enable for git flow
+git flow init
+
+//first feature
+git flow feature start f1
+git commit -a -m "feature 1"
+git flow feature finish f1
+
+
+//release 
+git flow release start r1
+//do a bugfix and commit
+git commit -a -m "feature 1"
+//finish the release
+git flow release finish r1 --tagname release1 --message release1
+
+
+//--showcommands -> shows output of all actual git commands executed by git flow
+
+//hotfix on production
+git flow hotfix start h1
+git commit -a -m "hotfix 1"
+git flow hotfix finish h1 --tagname hotfix1 --message hotfix1 --showcommands

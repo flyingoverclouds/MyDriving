@@ -10,6 +10,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./apis/trips/
     steps:
     - uses: actions/checkout@v2
 
@@ -18,11 +20,9 @@ jobs:
       with:
         go-version: 1.17
         
-    - name: init
-      run: go mod init -v ./apis/trips/
 
     - name: Build
-      run: go build -v ./apis/trips/
+      run: go build -v ./...
 
     - name: Test
-      run: go test -v ./apis/trips/
+      run: go test -v ./...

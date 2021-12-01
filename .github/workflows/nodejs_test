@@ -2,9 +2,7 @@ name: UserProfile Test/Package API
 
 on:
   workflow_dispatch:
-  push:
-    paths: apis/userprofile/**
-    branches: [ develop ]
+
   pull_request:
     paths: apis/userprofile/**
     branches: [ main ]

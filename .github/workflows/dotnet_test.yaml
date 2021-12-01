@@ -1,4 +1,4 @@
-name: POI API Build/Test/Package
+name: POI API Test/Package
 
 on:
   workflow_dispatch:

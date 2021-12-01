@@ -23,9 +23,9 @@ jobs:
       
     - name: Package
       #run: dotnet publish ./api/poi
-      run: dotnet publish ./apis/poi/web/poi.csproj --output ./publish /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:DesktopBuildPackageLocation="./package/poi-api.zip"
+      run: dotnet publish ./apis/poi/web/poi.csproj --output ./publish /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:DesktopBuildPackageLocation="./apis/poi/web/package/poi-api.zip"
       
     - uses: actions/upload-artifact@v2
       with:
         name: poi-api
-        path: ./package/poi-api.zip
+        path: ./apis/poi/web/package/poi-api.zip

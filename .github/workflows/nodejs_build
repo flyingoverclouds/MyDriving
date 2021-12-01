@@ -1,4 +1,4 @@
-name: UserProfile build/package API
+name: UserProfile Build/Packagee API
 
 on:
   workflow_dispatch:

@@ -1,0 +1,41 @@
+name: UserProfile API
+
+on:
+  workflow_dispatch:
+  push:
+    paths: apis/userprofile/**
+    branches: [ main ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./apis/userprofile/
+    steps:
+    - uses: actions/checkout@v2
+   
+    - uses: azure/docker-login@v1 
+      with: 
+        login-server: openhackiaw3kcz1acr.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }} 
+        password: ${{ secrets.ACR_PASSWORD }} 
+       
+    - run: | 
+        docker build ./apis/userprofile/web -t openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }} 
+        docker push openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }} 
+        
+     - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'openhackiaw3kcz1poi'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: 'openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}'
+        slot-name: staging
+        
+    - name: The job has failed
+      if: ${{ failure() }}
+      run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "Here are more details."
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      

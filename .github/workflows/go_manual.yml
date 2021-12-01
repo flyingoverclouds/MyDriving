@@ -5,6 +5,9 @@ on:
   push:
     paths: apis/trips/**
     branches: [ develop ]
+  pull_request:
+    paths: apis/trips/**
+    branches: [ main ]
 
 jobs:
 

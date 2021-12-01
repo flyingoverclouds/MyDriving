@@ -33,10 +33,13 @@ jobs:
     - name: Compile with Maven
       run: mvn -B compile --file apis/user-java/pom.xml
     
+    - name: Running tests 
+      run: mvn test --file apis/user-java/pom.xml
+
     - name: Build with Maven
       run: mvn -B package --file apis/user-java/pom.xml
 
-    - name: If job failed, create issue
+    - name: Checking workflow status
       if: ${{ failure() }}
       run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "User-Java CI worflow failed."
       env:

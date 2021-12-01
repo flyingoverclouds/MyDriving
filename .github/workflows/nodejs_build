@@ -1,4 +1,4 @@
-name: UserProfile API
+name: UserProfile build/package API
 
 on:
   workflow_dispatch:

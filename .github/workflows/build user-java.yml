@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
   push:
     branches: [ develop ]
-    paths: ./apis/user-java/**
+    paths: apis/user-java/**
   pull_request:
     branches: [ develop ]
-    paths: ./apis/user-java/**
+    paths: apis/user-java/**
 
 jobs:
   build:

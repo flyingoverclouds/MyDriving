@@ -10,7 +10,7 @@ on:
     branches: [ develop ]
     paths: apis/user-java/**
   pull_request:
-    branches: [ develop ]
+    branches: [ main ]
     paths: apis/user-java/**
 
 jobs:

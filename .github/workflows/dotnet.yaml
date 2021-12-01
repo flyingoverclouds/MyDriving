@@ -28,5 +28,11 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }} 
        
     - run: | 
-        docker build ./apis/poi/web -t openhackiaw3kcz1acr.azurecr.io/appdb:${{ github.sha }} 
+        docker build ./apis/poi/ -t openhackiaw3kcz1acr.azurecr.io/appdb:${{ github.sha }} 
         docker push openhackiaw3kcz1acr.azurecr.io/appdb:${{ github.sha }}
+        
+    - name: Checking workflow status
+      if: ${{ failure() }}
+      run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "User-Java CI worflow failed."
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

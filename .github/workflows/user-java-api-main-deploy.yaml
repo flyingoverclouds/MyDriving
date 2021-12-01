@@ -14,7 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-        
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - uses: azure/docker-login@v1 
       with: 
         login-server: openhackiaw3kcz1acr.azurecr.io
@@ -26,9 +30,16 @@ jobs:
     
     - name: Pushing container image to ACR
       run: docker push openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}
-        
+
+    - name: Deploying container to app service
+      run: az webapp config container set --name openhackiaw3kcz1userjava-staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
+
+    - name: list all web app available
+      run: az webapp list -o table
+
     - name: Checking workflow status
       if: ${{ failure() }}
       run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "User-Java CD worflow failed."
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

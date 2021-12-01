@@ -1,4 +1,4 @@
-name: Go
+name: Trips API
 
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
 
     - name: The job has failed
       if: ${{ failure() }}
-      run: gh issue create --title ${{ github.workflow }} --body "Here are more details."
+      run: gh issue create --title ${{ github.workflow }}-${{ github.run_id }} --body "Here are more details."
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       

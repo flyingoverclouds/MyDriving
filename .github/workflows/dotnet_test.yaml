@@ -2,9 +2,9 @@ name: POI API Build/Test/Package
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ develop ]
-    paths: ./apis/poi/**
+  pull_request:
+    paths: apis/poi/**
+    branches: [ main ]
   
 jobs:
   build:

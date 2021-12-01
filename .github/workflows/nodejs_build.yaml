@@ -26,7 +26,7 @@ jobs:
         docker build ./apis/userprofile/web -t openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }} 
         docker push openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }} 
         
-     - uses: azure/webapps-deploy@v2
+    - uses: azure/webapps-deploy@v2
       with:
         app-name: 'openhackiaw3kcz1poi'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}

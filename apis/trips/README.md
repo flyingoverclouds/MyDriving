@@ -1,4 +1,4 @@
-# Overview Updated 2x
+# Overview
 
 This is the Trips API for the MyDriving service.
 

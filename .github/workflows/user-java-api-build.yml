@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI with Maven
+name: User-Java API build and test (CI) 
 
 
 on:
@@ -39,6 +39,22 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file apis/user-java/pom.xml
 
+#    - uses: azure/docker-login@v1 
+#      with: 
+#        login-server: openhackiaw3kcz1acr.azurecr.io
+#        username: ${{ secrets.ACR_USERNAME }} 
+#        password: ${{ secrets.ACR_PASSWORD }} 
+        
+#    - uses: azure/docker-login@v1 
+#      with: 
+#        login-server: openhackiaw3kcz1acr.azurecr.io
+#        username: ${{ secrets.ACR_USERNAME }} 
+#        password: ${{ secrets.ACR_PASSWORD }} 
+       
+#    - run: | 
+#        docker build ./apis/user-java/ -t openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}
+#        docker push openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}
+        
     - name: Checking workflow status
       if: ${{ failure() }}
       run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "User-Java CI worflow failed."

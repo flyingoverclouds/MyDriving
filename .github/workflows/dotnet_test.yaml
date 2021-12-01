@@ -1,0 +1,28 @@
+name: POI API Test/Package
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: apis/poi/**
+    branches: [ main ]
+  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+        
+    - name: Test
+      run: dotnet test ./apis/poi/tests/UnitTests --verbosity normal
+        
+    - name: Checking workflow status
+      if: ${{ failure() }}
+      run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "POI DotNet worflow failed."
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

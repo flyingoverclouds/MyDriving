@@ -11,7 +11,7 @@ namespace poi.Utility
             var healthCheckResultHealthy = true; //TODO: implement a proper health check
 
             if (healthCheckResultHealthy)
-                return Task.FromResult(HealthCheckResult.Healthy("POI is healthy."));
+                return Task.FromResult(HealthCheckResult.Healthy("POI is healthy and updated."));
 
             return Task.FromResult(HealthCheckResult.Unhealthy("POI is UNHEALTHY!!!"));
         }

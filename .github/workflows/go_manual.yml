@@ -30,14 +30,12 @@ jobs:
     - name: Test
 #       run: go test ./tripsgo -run Unit
       run: go test -v ./...
-      
-    - name: gh login
-      if: ${{ failure() }}
-      run: gh auth login
-  
+
     - name: The job has failed
       if: ${{ failure() }}
       run: gh issue create --title "Nicolas rules" --body "Here are more details."
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
 
           

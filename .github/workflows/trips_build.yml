@@ -3,7 +3,7 @@ name: Trips API Build
 on:
   workflow_dispatch:
   push:
-    paths: apis/poi/**
+    paths: apis/trips/**
     branches: [ main ]
 
 

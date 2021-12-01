@@ -1,4 +1,4 @@
-name: .NET
+name: POI API Build/Test/Package
 
 on:
   workflow_dispatch:
@@ -17,5 +17,15 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
+        
     - name: Test
       run: dotnet test ./apis/poi/tests/UnitTests --verbosity normal
+      
+    - name: Package
+      #run: dotnet publish ./api/poi
+      run: dotnet publish ./api/poi/web/poi.csproj --output ./publish /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:DesktopBuildPackageLocation="./package/poi-api.zip"
+      
+    - uses: actions/upload-artifact@v2
+      with:
+        name: poi-api
+        path: ./package/poi-api.zip

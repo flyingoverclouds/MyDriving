@@ -1,0 +1,31 @@
+name: POI API Build/Package
+
+on:
+  workflow_dispatch:
+  push:
+    paths: apis/poi/**
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+     
+    - uses: azure/docker-login@v1 
+      with: 
+        login-server: openhackiaw3kcz1acr.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }} 
+        password: ${{ secrets.ACR_PASSWORD }} 
+       
+    - run: | 
+        docker build ./apis/poi/web -t openhackiaw3kcz1acr.azurecr.io/dotnetpoi:${{ github.sha }} 
+        docker push openhackiaw3kcz1acr.azurecr.io/dotnetpoi:${{ github.sha }}
+        
+    - name: Checking workflow status
+      if: ${{ failure() }}
+      run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "POI DotNet worflow failed."
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -21,11 +21,12 @@ jobs:
     - name: Test
       run: dotnet test ./apis/poi/tests/UnitTests --verbosity normal
       
-    - name: Package
-      #run: dotnet publish ./api/poi
-      run: dotnet publish ./apis/poi/web/poi.csproj --output ./publish /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:DesktopBuildPackageLocation="./apis/poi/web/package/poi-api.zip"
-      
-    - uses: actions/upload-artifact@v2
-      with:
-        name: poi-api
-        path: ./apis/poi/web/package/poi-api.zip
+    - uses: azure/docker-login@v1 
+      with: 
+        login-server: openhackiaw3kcz1acr.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }} 
+        password: ${{ secrets.ACR_PASSWORD }} 
+       
+    - run: | 
+        docker build . -t openhackiaw3kcz1acr.azurecr.io/appdb:${{ github.sha }} 
+        docker push openhackiaw3kcz1acr.azurecr.io/appdb:${{ github.sha }}

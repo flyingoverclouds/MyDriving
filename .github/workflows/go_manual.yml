@@ -34,7 +34,7 @@ jobs:
   
     - name: The job has failed
       if: ${{ failure() }}
-      run: gh issue create --title ${{ env.GITHUB_WORKFLOW }} --body "Here are more details."
+      run: gh issue create --title "Nicolas rules" --body "Here are more details."
       
 
           

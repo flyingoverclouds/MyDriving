@@ -23,8 +23,8 @@ jobs:
         
 
     - name: Build
-      run: go build -mod=mod -v ./...
+      run: go build -mod=mod -v .
 
     - name: Test
-      run: go test ./tripgo -run Unit
+      run: go test ./tripsgo -run Unit
 #       run: go test -v ./...

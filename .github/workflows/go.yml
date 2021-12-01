@@ -38,7 +38,7 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }} 
        
     - run: | 
-        docker build . -t openhackiaw3kcz1acr.azurecr.io/appdb:${{ github.sha }} 
+        docker build . -t openhackiaw3kcz1acr.azurecr.io/devopsoh/api-trips:${{ github.sha }} 
         docker push openhackiaw3kcz1acr.azurecr.io/devopsoh/api-trips:${{ github.sha }}
 
     - name: The job has failed

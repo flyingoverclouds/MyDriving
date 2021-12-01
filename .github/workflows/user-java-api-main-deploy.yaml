@@ -31,11 +31,12 @@ jobs:
     - name: Pushing container image to ACR
       run: docker push openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}
 
+    - name: list all web app available
+      run: az webapp list -o table
+
     - name: Deploying container to app service
       run: az webapp config container set --name openhackiaw3kcz1userjava-staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
 
-    - name: list all web app available
-      run: az webapp list -o table
 
     - name: Checking workflow status
       if: ${{ failure() }}

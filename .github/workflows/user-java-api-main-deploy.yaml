@@ -35,6 +35,9 @@ jobs:
     - name: list all web app available
       run: az webapp list -o table
 
+    - name: starting staging slot
+      run: az webapp start --name openhackiaw3kcz1userjava --slot staging --resource-group openhackiaw3kcz1rg
+
     - name: Deploying container to app service
       run: az webapp config container set --name openhackiaw3kcz1userjava --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.run_number }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
 

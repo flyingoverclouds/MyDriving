@@ -37,7 +37,18 @@ jobs:
     - name: Deploying container to app service
       run: az webapp config container set --name openhackiaw3kcz1userjava --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
 
-
+    - name: checking deploy status (TODO)
+      run: |
+        echo "FAKE status checker should run ~/apis/user-java/api-status-check.sh"
+        
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: OpenHack-DevOps-Morning-Avengers/MyDriving
+        event-type: swapslots
+        client-payload: '{"app": "openhackiaw3kcz1userjava", "rg" : "openhackiaw3kcz1rg"}'
+        
     - name: Checking workflow status
       if: ${{ failure() }}
       run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "User-Java CD worflow failed."

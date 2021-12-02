@@ -50,11 +50,11 @@ jobs:
         token: ${{ secrets.REPO_ACCESS_TOKEN }}
         repository: OpenHack-DevOps-Morning-Avengers/MyDriving
         event-type: swapslots
-        client-payload: '{"app": "openhackiaw3kcz1userjava", "rg" : "openhackiaw3kcz1rg"}'
+        client-payload: '{"app": "openhackiaw3kcz1userjava", "rg" : "openhackiaw3kcz1rg", "run" : "${{ github.run_number }}"}'
         
     - name: Checking workflow status (create issue if failure)
       if: ${{ failure() }}
-      run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "User-Java CD worflow failed."
+      run: gh issue create --title "${{ github.workflow }}-${{ github.run_number }}" --body "User-Java CD worflow failed."
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

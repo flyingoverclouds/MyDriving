@@ -1,12 +1,11 @@
 #!/bin/bash
 
-declare endpoint="https://openhackiaw3kcz1userjava-staging.azurewebsites.net/api/healthcheck/user-java"
-declare -i maxretries=60
-declare -i retryinterval=5
+declare endpoint="https://openhackiaw3kcz1poi.azurewebsites.net/api/healthcheck/poi" #should be parameterized
+declare -i maxretries=50
+declare -i retryinterval=2
 declare checkedstatus='json_status="healthy"'
 
-echo "Checking url : $endpoint"
-echo "For status : $checkedstatus"
+
 while [[ true ]]; do
 #   echo "$maxretries Checking $endpoint "
    result=`curl --max-time 5 -s $endpoint |\

@@ -33,16 +33,17 @@ jobs:
     - name: Deploying container to app service
       run: az webapp config container set --name openhackiaw3kcz1userprofile --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
 
-    - name: Swap Staging to Prod
-      run: |
-        az webapp deployment slot swap -g openhackiaw3kcz1rg -n openhackiaw3kcz1userprofile --slot staging --target-slot production   
-       
-#    - uses: azure/webapps-deploy@v2
-#      with:
-#      app-name: 'openhackiaw3kcz1userprofile'
-#      publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-#       images: 'openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}'
-#       slot-name: staging
+   # - name: Swap Staging to Prod
+   #   run: |
+   #     az webapp deployment slot swap -g openhackiaw3kcz1rg -n openhackiaw3kcz1userprofile --slot staging --target-slot production   
+   
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: OpenHack-DevOps-Morning-Avengers/MyDriving
+        event-type: swapslots
+        client-payload: '{"app": "openhackiaw3kcz1userprofile", "rg" : "openhackiaw3kcz1rg"}' 
         
     - name: The job has failed
       if: ${{ failure() }}

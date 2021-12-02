@@ -7,7 +7,9 @@ on:
   workflow_dispatch:
   push:
     branches: [ main ]
-    paths: apis/user-java/**
+    paths: 
+    - 'apis/user-java/**'
+    - '!apis/user-java/api-status-check.sh'
     
 jobs:
   build:
@@ -39,7 +41,8 @@ jobs:
 
     - name: checking deploy status (TODO)
       run: |
-        echo "FAKE status checker should run ~/apis/user-java/api-status-check.sh"
+        echo "Checking api health"
+        ~/apis/user-java/api-status-check.sh https://openhackiaw3kcz1userjava-staging.azurewebsites.net/api/healthcheck/user-java 'json_status="healthy"' 
         
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v1

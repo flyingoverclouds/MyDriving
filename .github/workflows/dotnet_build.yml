@@ -13,6 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
      
     - uses: azure/docker-login@v1 
       with: 
@@ -23,13 +27,27 @@ jobs:
     - run: | 
         docker build ./apis/poi/web -t openhackiaw3kcz1acr.azurecr.io/devopsoh/api-poi:${{ github.sha }} 
         docker push openhackiaw3kcz1acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+  
+    - name: Deploying container to app service
+      run: az webapp config container set --name openhackiaw3kcz1poi --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
+
+  
+ #   - uses: azure/webapps-deploy@v2
+ #     with:
+ #       app-name: 'openhackiaw3kcz1poi'
+ #       publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+ #       images: 'openhackiaw3kcz1acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}'
+ #       slot-name: staging
     
-    - uses: azure/webapps-deploy@v2
+    
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v1
       with:
-        app-name: 'openhackiaw3kcz1poi'
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        images: 'openhackiaw3kcz1acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}'
-        slot-name: staging
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: OpenHack-DevOps-Morning-Avengers/MyDriving
+        event-type: swapslots
+        client-payload: '{"app": "openhackiaw3kcz1trips", "rg" : "openhackiaw3kcz1rg"}'
+    
     
     - name: Checking workflow status
       if: ${{ failure() }}

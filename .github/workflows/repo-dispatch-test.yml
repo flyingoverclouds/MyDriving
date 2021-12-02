@@ -22,4 +22,4 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: OpenHack-DevOps-Morning-Avengers/MyDriving
           event-type: swapslots
-          client-payload: '{"appname": "openhackiaw3kcz1trips"}'
+          client-payload: '{"app": "openhackiaw3kcz1trips", "rg" : "openhackiaw3kcz1rg"}'

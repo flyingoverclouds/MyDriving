@@ -13,6 +13,9 @@ jobs:
      - uses: azure/login@v1
        with:
          creds: ${{ secrets.AZURE_CREDENTIALS }}
+         
+     - name: Reporting Target App
+       run: echo "Swapping slots for ${{ github.event.client_payload.app }} "
 
      - name: Swap Staging to Prod
        run: az webapp deployment slot swap -g ${{ github.event.client_payload.rg }} -n  ${{ github.event.client_payload.app }} --slot staging --target-slot production

@@ -40,7 +40,7 @@ jobs:
  #       slot-name: staging
    
     - name: checking deploy status
-      run: bash ./deployscripts/api-status-check.sh https://openhackiaw3kcz1poi-staging.azurewebsites.net/api/healthcheck/poi 'json_status="healthy"' 
+      run: bash ./deployscripts/api-status-check.sh https://openhackiaw3kcz1poi-staging.azurewebsites.net/api/healthcheck/poi 'json_status="Healthy"' 
     
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v1

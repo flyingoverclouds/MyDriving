@@ -37,6 +37,9 @@ jobs:
    #   run: |
    #     az webapp deployment slot swap -g openhackiaw3kcz1rg -n openhackiaw3kcz1userprofile --slot staging --target-slot production   
    
+    - name: checking deploy status
+      run: bash ./deployscripts/api-status-check.sh https://openhackiaw3kcz1userprofile.azurewebsites.net/api/healthcheck/user '"status":"healthy"' 
+        
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v1
       with:

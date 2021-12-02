@@ -19,4 +19,6 @@ jobs:
      - name: Swap Staging to Prod
        run: az webapp deployment slot swap -g ${{ github.event.client_payload.rg }} -n  ${{ github.event.client_payload.app }} --slot staging --target-slot production
 
-     
+     - name: Stop the staging slot
+       run: az webapp stop -g ${{ github.event.client_payload.rg }} -n  ${{ github.event.client_payload.app }} --slot staging
+               

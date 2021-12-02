@@ -16,38 +16,38 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    # - uses: azure/login@v1
-    #   with:
-    #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # - uses: azure/docker-login@v1 
-    #   with: 
-    #     login-server: openhackiaw3kcz1acr.azurecr.io
-    #     username: ${{ secrets.ACR_USERNAME }} 
-    #     password: ${{ secrets.ACR_PASSWORD }} 
+    - uses: azure/docker-login@v1 
+      with: 
+        login-server: openhackiaw3kcz1acr.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }} 
+        password: ${{ secrets.ACR_PASSWORD }} 
        
-    # - name: Build docker container 
-    #   run: docker build ./apis/user-java/ -t openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}
+    - name: Build docker container 
+      run: docker build ./apis/user-java/ -t openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}
     
-    # - name: Pushing container image to ACR
-    #   run: docker push openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}
+    - name: Pushing container image to ACR
+      run: docker push openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}
 
-    # - name: list all web app available
-    #   run: az webapp list -o table
+    - name: list all web app available
+      run: az webapp list -o table
 
-    # - name: Deploying container to app service
-    #   run: az webapp config container set --name openhackiaw3kcz1userjava --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
+    - name: Deploying container to app service
+      run: az webapp config container set --name openhackiaw3kcz1userjava --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
 
     - name: checking deploy status
       run: bash ./deployscripts/api-status-check.sh https://openhackiaw3kcz1userjava-staging.azurewebsites.net/api/healthcheck/user-java 'json_status="healthy"' 
         
-    # - name: Repository Dispatch
-    #   uses: peter-evans/repository-dispatch@v1
-    #   with:
-    #     token: ${{ secrets.REPO_ACCESS_TOKEN }}
-    #     repository: OpenHack-DevOps-Morning-Avengers/MyDriving
-    #     event-type: swapslots
-    #     client-payload: '{"app": "openhackiaw3kcz1userjava", "rg" : "openhackiaw3kcz1rg"}'
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: OpenHack-DevOps-Morning-Avengers/MyDriving
+        event-type: swapslots
+        client-payload: '{"app": "openhackiaw3kcz1userjava", "rg" : "openhackiaw3kcz1rg"}'
         
     - name: Checking workflow status
       if: ${{ failure() }}

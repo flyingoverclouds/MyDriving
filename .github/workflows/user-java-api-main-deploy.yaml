@@ -39,7 +39,7 @@ jobs:
     - name: Deploying container to app service
       run: az webapp config container set --name openhackiaw3kcz1userjava --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
 
-    - name: checking deploy status (TODO)
+    - name: checking deploy status
       run: |
         echo "Checking api health"
         ~/apis/user-java/api-status-check.sh https://openhackiaw3kcz1userjava-staging.azurewebsites.net/api/healthcheck/user-java 'json_status="healthy"' 

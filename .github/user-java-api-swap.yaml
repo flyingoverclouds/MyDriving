@@ -1,0 +1,27 @@
+name: User-Java API swap app service staging/prod 
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches: [ main ]
+#    paths: apis/user-java/**
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+#    - uses: actions/checkout@v2
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: swap stagin with prod
+      run: az webapp deployment slot swap  --name openhackiaw3kcz1userjava --resource-group openhackiaw3kcz1rg  --slot staging --target-slot production
+
+    - name: Checking workflow status
+      if: ${{ failure() }}
+      run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "User-Java SWAP failed"
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

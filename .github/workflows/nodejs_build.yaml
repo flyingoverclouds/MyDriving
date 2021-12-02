@@ -30,6 +30,9 @@ jobs:
         docker build . -t openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.run_number }} 
         docker push openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.run_number }} 
        
+    - name: Starting  Staging Slot
+      run: az webapp start --name openhackiaw3kcz1userprofile --slot staging --resource-group openhackiaw3kcz1rg 
+
     - name: Deploying container to app service
       run: az webapp config container set --name openhackiaw3kcz1userprofile --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.run_number }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
 

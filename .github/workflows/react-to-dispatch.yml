@@ -1,0 +1,29 @@
+name: React to Dispatch Event
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+on:
+  repository_dispatch:
+    types: [swapslot]
+jobs:
+  myEvent:
+    runs-on: ubuntu-latest
+    steps:
+    
+     - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+
+- name: Swap Staging to Prod
+      run: |
+        az webapp deployment slot swap -g ${{ github.event.client_payload.rg }} -n  ${{ github.event.client_payload.app }} --slot staging --target-slot production
+
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+      - run: echo ${{ github.event.client_payload.sha }}

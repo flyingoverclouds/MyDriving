@@ -1,9 +1,9 @@
 #!/bin/bash
 
-declare endpoint="https://openhackiaw3kcz1poi.azurewebsites.net/api/healthcheck/poi" #should be parameterized
+declare endpoint= $1 #should be parameterized
 declare -i maxretries=50
 declare -i retryinterval=2
-declare checkedstatus='json_status="healthy"'
+declare checkedstatus= $2
 
 
 while [[ true ]]; do

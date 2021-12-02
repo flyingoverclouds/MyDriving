@@ -33,9 +33,9 @@ jobs:
     - name: Deploying container to app service
       run: az webapp config container set --name openhackiaw3kcz1userprofile --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
 
-    - name: Swap Staging to Prod
-      run: |
-        az webapp deployment slot swap -g openhackiaw3kcz1rg -n openhackiaw3kcz1userprofile --slot staging --target-slot production   
+   # - name: Swap Staging to Prod
+   #   run: |
+   #     az webapp deployment slot swap -g openhackiaw3kcz1rg -n openhackiaw3kcz1userprofile --slot staging --target-slot production   
    
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v1

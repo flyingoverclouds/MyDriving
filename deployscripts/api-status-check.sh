@@ -1,9 +1,9 @@
 #!/bin/bash
 
-declare endpoint= $1 #"https://openhackiaw3kcz1userjava-staging.azurewebsites.net/api/healthcheck/user-java"
+declare endpoint=$1 
 declare -i maxretries=60
 declare -i retryinterval=5
-declare checkedstatus=$2 #'json_status="healthy"'
+declare checkedstatus=$2 
 
 echo "Checking url : $endpoint"
 echo "For status : $checkedstatus"

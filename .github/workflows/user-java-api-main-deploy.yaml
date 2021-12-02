@@ -39,7 +39,7 @@ jobs:
       run: az webapp config container set --name openhackiaw3kcz1userjava --slot staging --resource-group openhackiaw3kcz1rg --docker-custom-image-name openhackiaw3kcz1acr.azurecr.io/api-user-java:${{ github.sha }}  --docker-registry-server-url https://openhackiaw3kcz1acr.azurecr.io
 
     - name: checking deploy status
-      run: ./deployscripts/api-status-check.sh "https://openhackiaw3kcz1userjava-staging.azurewebsites.net/api/healthcheck/user-java" 'json_status="healthy"' 
+      run: bash ./deployscripts/api-status-check.sh "https://openhackiaw3kcz1userjava-staging.azurewebsites.net/api/healthcheck/user-java" 'json_status="healthy"' 
         
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v1

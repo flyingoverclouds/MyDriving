@@ -10,13 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-#    - uses: actions/checkout@v2
-
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: swap stagin with prod
+    - name: swap staging slot with production slot
       run: az webapp deployment slot swap  --name openhackiaw3kcz1userjava --resource-group openhackiaw3kcz1rg  --slot staging --target-slot production
 
     - name: Checking workflow status

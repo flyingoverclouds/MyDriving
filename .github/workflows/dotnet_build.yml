@@ -38,7 +38,11 @@ jobs:
  #       publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
  #       images: 'openhackiaw3kcz1acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}'
  #       slot-name: staging
-    
+    - name: checking deploy status
+      run: |
+        echo "Checking api health"
+        ./apis/poi/api-status-check.sh https://openhackiaw3kcz1poi-staging.azurewebsites.net/api/healthcheck/poi 'json_status="healthy"' 
+        
     
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v1

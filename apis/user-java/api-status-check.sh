@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare endpoint="https://openhackiaw3kcz1userjava.azurewebsites.net/api/healthcheck/user-java" #should be parameterized
+declare endpoint="https://openhackiaw3kcz1userjava-staging.azurewebsites.net/api/healthcheck/user-java" #should be parameterized
 declare -i maxretries=50
 declare -i retryinterval=2
 declare checkedstatus='json_status="healthy"'

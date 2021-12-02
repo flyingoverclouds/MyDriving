@@ -39,6 +39,16 @@ jobs:
  #       images: 'openhackiaw3kcz1acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}'
  #       slot-name: staging
     
+    
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: OpenHack-DevOps-Morning-Avengers/MyDriving
+        event-type: swapslots
+        client-payload: '{"app": "openhackiaw3kcz1trips", "rg" : "openhackiaw3kcz1rg"}'
+    
+    
     - name: Checking workflow status
       if: ${{ failure() }}
       run: gh issue create --title "${{ github.workflow }}-${{ github.run_id }}" --body "POI DotNet workflow failed."

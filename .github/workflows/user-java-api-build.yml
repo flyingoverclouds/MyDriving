@@ -10,13 +10,11 @@ on:
     branches: [ develop ]
     paths: 
     - 'apis/user-java/**'
-    - '!apis/user-java/api-status-check.sh'
     
   pull_request:
     branches: [ main ]
     paths: 
     - 'apis/user-java/**'
-    - '!apis/user-java/api-status-check.sh'
 
 jobs:
   build:

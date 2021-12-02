@@ -36,11 +36,7 @@ jobs:
 
     - name: Swap Staging to Prod
       run: |
-        az webapp deployment slot swap \
-          -g openhackiaw3kcz1rg \ 
-          -n openhackiaw3kcz1trips \ 
-          --slot staging \
-          --target-slot production
+        az webapp deployment slot swap -g openhackiaw3kcz1rg -n openhackiaw3kcz1trips --slot staging --target-slot production
 
 
     - name: The job has failed
